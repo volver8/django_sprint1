@@ -152,3 +152,11 @@ media/
 build_tests/
 yap_testing
 html/img/img/
+
+# Unused files in project's apps
+admin.py
+models.py
+tests.py
+
+# Unused dirs in project
+html/
