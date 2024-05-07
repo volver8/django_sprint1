@@ -1,6 +1,6 @@
 from django.http import Http404
-from django.shortcuts import render
 
+from django.shortcuts import render
 
 posts = [
     {
@@ -54,22 +54,16 @@ def index(request):
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    post = {}
-    for dict in posts:
-        post[dict['id']] = dict
-    if id in post:
-        context = {'post': post[id]}
-        return render(request, template, context)
-    else:
+    total_posts = {}
+    for post in posts:
+        total_posts[post['id']] = post
+    if id not in total_posts:
         raise Http404("The requested resource was not found on this server.")
+    context = {'post': total_posts[id]}
+    return render(request, template, context)
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    for dict in posts:
-        if dict['category'] == category_slug:
-            context = {'post': dict['category']}
-            return render(request, template, context)
-        else:
-            context = {'post': category_slug}
-            return render(request, template, context)
+    context = {'category': category_slug}
+    return render(request, template, context)
